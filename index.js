@@ -4,9 +4,9 @@ const Chance = require('chance')
 const chance = new Chance()
 
 // KNOBS
-const weight_variance = 2
+const weight_variance = 10
 const leads = 1000
-const num_agents = 10
+const num_agents = 1
 
 function makeAgent(name, weight) {
   return {
@@ -19,10 +19,14 @@ function makeAgent(name, weight) {
 
 let agents = []
 
-for( let i=0; i < num_agents; i++ ) {
-  const weight = _.round((Math.random() * weight_variance) + 1, 2)
-  agents.push(makeAgent(chance.name(), weight))
-}
+//for( let i=0; i < num_agents; i++ ) {
+  ////const weight = _.round((Math.random() * weight_variance) + 1, 2)
+  //const weight = 1
+  //agents.push(makeAgent(chance.name(), weight))
+//}
+
+agents.push(makeAgent('boosted agent', 2 ))
+agents.push(makeAgent('boosted agent', 10 ))
 
 function stepAgents(agents) {
   return agents.map(agent => {
@@ -47,7 +51,7 @@ for( let i=0; i < leads; i++ ) {
 } 
 
 console.log('')
-console.log(`REPORT (${leads} Lead Assignments, ${num_agents} Agents)`)
+console.log(`REPORT (${leads} Lead Assignments, ${agents.length} Agents)`)
 agents.forEach(agent => {
   const { name, weight, leads_assigned } = agent
   const pct = _.round((leads_assigned/leads) * 100, 2)
